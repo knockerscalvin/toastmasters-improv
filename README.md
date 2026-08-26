@@ -30,5 +30,5 @@ npx serve .
 ## Controls
 
 - Click anywhere, press `→` / `Space` to advance; `←` to go back
-- Topic wheel draws from a shuffled deck of 13 topics with no repeats
+- Topic wheel draws at random from 16 topics
 - Built-in one-minute speaking timer

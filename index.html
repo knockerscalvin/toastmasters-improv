@@ -310,7 +310,6 @@
         <div id="topic">Ready?</div>
         <div class="controls">
           <button class="btn" id="draw">Draw a topic</button>
-          <button class="btn ghost" id="reset">Reset deck</button>
         </div>
         <div class="timer">
           <div id="clock">1:00</div>
@@ -542,31 +541,23 @@
     if(e.key === 'Enter') renderPairs();
   };
 
-  // ---- topic deck ----
+  // ---- topic draw ----
   var TOPICS = ['Movie','Artist','Travel Trip','Family Member','School','Food','Book',
                 'Life Experience','Country','Snack','Game','Friend','Sport',
                 'Gift','Trouble','Holiday'];
-  var deck = [], topicEl = document.getElementById('topic'), rolling = false;
+  var topicEl = document.getElementById('topic'), rolling = false;
 
-  function shuffle(){
-    deck = TOPICS.slice();
-    for(var k = deck.length - 1; k > 0; k--){
-      var j = Math.floor(Math.random() * (k + 1));
-      var t = deck[k]; deck[k] = deck[j]; deck[j] = t;
-    }
-  }
-  shuffle();
+  function randomTopic(){ return TOPICS[Math.floor(Math.random() * TOPICS.length)]; }
 
   document.getElementById('draw').onclick = function(e){
     e.stopPropagation();
     if(rolling) return;
-    if(!deck.length) shuffle();
-    var pick = deck.pop();
+    var pick = randomTopic();
     rolling = true;
     topicEl.classList.add('rolling');
     var spins = 0;
     var iv = setInterval(function(){
-      topicEl.textContent = TOPICS[Math.floor(Math.random() * TOPICS.length)];
+      topicEl.textContent = randomTopic();
       if(++spins > 11){
         clearInterval(iv);
         topicEl.textContent = pick;
@@ -574,11 +565,6 @@
         rolling = false;
       }
     }, 65);
-  };
-  document.getElementById('reset').onclick = function(e){
-    e.stopPropagation();
-    shuffle();
-    topicEl.textContent = 'Ready?';
   };
 
   // ---- one minute timer ----
