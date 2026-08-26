@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Childhood Memories — An Improv Session</title>
+<meta name="description" content="A Toastmasters improv session: share childhood memories in one minute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#772432;
+    --maroon-deep:#4a121c;
+    --blue:#004165;
+    --yellow:#F2DF74;
+    --cream:#FBF6EC;
+    --ink:#2A1A1D;
+    --muted:rgba(251,246,236,.62);
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--sans);
+    background:var(--maroon-deep);
+    color:var(--cream);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  /* ---------- stage ---------- */
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:clamp(20px,5vw,56px) clamp(18px,5vw,48px) clamp(84px,12vh,120px);
+    opacity:0;visibility:hidden;transform:translateY(14px);
+    transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.3,1),visibility .5s;
+    overflow-y:auto;
+  }
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .inner{width:100%;max-width:760px;margin:auto}
+
+  /* ---------- backgrounds ---------- */
+  #s0{background:radial-gradient(120% 100% at 50% 0%,#8d2c3d 0%,#5d1a26 45%,#38101a 100%)}
+  #s1{background:radial-gradient(120% 100% at 50% 0%,#0a3d5c 0%,#052c42 50%,#031d2c 100%)}
+  #s2{background:radial-gradient(120% 100% at 50% 0%,#7b2334 0%,#4a121c 60%,#2c0b12 100%)}
+  #s3{background:radial-gradient(120% 100% at 50% 0%,#1d4a3a 0%,#123227 55%,#0a1f18 100%)}
+  #s4{background:radial-gradient(120% 100% at 50% 0%,#5a3d7a 0%,#33224a 55%,#1c1229 100%)}
+
+  /* ---------- type ---------- */
+  .eyebrow{
+    font-size:clamp(11px,1.6vw,13px);font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--yellow);margin-bottom:clamp(14px,3vh,26px);
+  }
+  h1{
+    font-family:var(--serif);font-weight:800;line-height:1.02;letter-spacing:-.02em;
+    font-size:clamp(38px,10vw,86px);
+  }
+  h2{
+    font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-.015em;
+    font-size:clamp(28px,6vw,50px);margin-bottom:clamp(18px,3.5vh,32px);
+  }
+  .sub{
+    font-family:var(--serif);font-style:italic;font-weight:400;
+    font-size:clamp(18px,3.6vw,28px);color:var(--yellow);margin-top:18px;
+  }
+  .lede{font-size:clamp(15px,2.2vw,18px);line-height:1.6;color:var(--muted);margin-top:22px}
+
+  /* ---------- rounds ---------- */
+  .rounds{display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px);text-align:left}
+  .round{
+    display:flex;gap:clamp(14px,3vw,22px);align-items:flex-start;
+    background:rgba(251,246,236,.06);border:1px solid rgba(251,246,236,.12);
+    border-radius:16px;padding:clamp(14px,2.6vw,20px) clamp(16px,3vw,24px);
+  }
+  .num{
+    flex:none;width:clamp(34px,6vw,42px);height:clamp(34px,6vw,42px);border-radius:50%;
+    display:grid;place-items:center;background:var(--yellow);color:var(--ink);
+    font-family:var(--serif);font-weight:800;font-size:clamp(16px,3vw,20px);
+  }
+  .round h3{font-size:clamp(15px,2.4vw,19px);font-weight:600;margin-bottom:5px}
+  .round p{font-size:clamp(14px,2.1vw,16px);line-height:1.55;color:var(--muted)}
+  .round b{color:var(--yellow);font-weight:600}
+
+  .note{
+    margin-top:clamp(18px,3vh,28px);text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:clamp(16px,2.8vw,22px);color:var(--yellow);
+  }
+
+  /* ---------- topic wheel ---------- */
+  .topic-card{
+    background:rgba(251,246,236,.07);border:1px solid rgba(251,246,236,.16);
+    border-radius:24px;padding:clamp(28px,6vw,52px) clamp(20px,5vw,44px);text-align:center;
+  }
+  .topic-label{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  #topic{
+    font-family:var(--serif);font-weight:800;line-height:1.05;letter-spacing:-.02em;
+    font-size:clamp(34px,9vw,72px);margin:clamp(14px,2.6vh,22px) 0 clamp(20px,3.4vh,30px);
+    min-height:1.1em;color:var(--yellow);
+    transition:opacity .12s ease;
+  }
+  #topic.rolling{opacity:.45}
+  .btn{
+    font-family:var(--sans);font-size:clamp(14px,2.2vw,16px);font-weight:600;
+    letter-spacing:.02em;border:0;border-radius:999px;cursor:pointer;
+    padding:clamp(13px,2.2vw,16px) clamp(26px,4.5vw,36px);
+    background:var(--yellow);color:var(--ink);
+    transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease;
+    box-shadow:0 6px 22px rgba(0,0,0,.28);
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.34)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(251,246,236,.34);box-shadow:none}
+  .btn.ghost:hover{background:rgba(251,246,236,.1)}
+  .controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+  /* ---------- timer ---------- */
+  .timer{margin-top:clamp(20px,3.4vh,30px);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+  #clock{
+    font-family:var(--serif);font-weight:600;font-variant-numeric:tabular-nums;
+    font-size:clamp(30px,6vw,46px);letter-spacing:-.01em;min-width:2.6em;text-align:center;
+  }
+  #clock.green{color:#8ce6a8}
+  #clock.amber{color:var(--yellow)}
+  #clock.red{color:#ff8b7d}
+
+  /* ---------- tip ---------- */
+  .w-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(10px,1.8vw,16px);text-align:left}
+  .w{background:rgba(251,246,236,.07);border:1px solid rgba(251,246,236,.14);border-radius:16px;padding:clamp(16px,2.8vw,22px)}
+  .w .k{font-family:var(--serif);font-weight:800;font-size:clamp(22px,4vw,30px);color:var(--yellow);margin-bottom:8px}
+  .w p{font-size:clamp(13.5px,2vw,15.5px);line-height:1.55;color:var(--muted)}
+  .quote{
+    margin-top:clamp(22px,3.6vh,34px);text-align:center;font-family:var(--serif);font-style:italic;
+    font-size:clamp(17px,3vw,24px);line-height:1.4;
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:10;
+    padding:16px clamp(16px,4vw,32px) calc(16px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:linear-gradient(to top,rgba(0,0,0,.42),transparent);
+  }
+  .nav button{
+    background:rgba(251,246,236,.1);border:1px solid rgba(251,246,236,.2);color:var(--cream);
+    width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:17px;line-height:1;
+    display:grid;place-items:center;transition:background .15s ease,opacity .15s ease;
+  }
+  .nav button:hover:not(:disabled){background:rgba(251,246,236,.22)}
+  .nav button:disabled{opacity:.28;cursor:default}
+  .dots{display:flex;gap:9px}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(251,246,236,.28);cursor:pointer;transition:all .25s ease;padding:0;border:0}
+  .dot.on{background:var(--yellow);width:24px;border-radius:4px}
+  .hint{position:fixed;bottom:calc(74px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;
+        font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,246,236,.4);
+        pointer-events:none;transition:opacity .4s ease;z-index:9}
+  .hint.hide{opacity:0}
+  @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- 0 — Cover -->
+  <section class="slide active" id="s0">
+    <div class="inner" style="text-align:center">
+      <div class="eyebrow">Toastmasters &middot; Table Topics</div>
+      <h1>Childhood<br>Memories</h1>
+      <div class="sub">An Improv Session</div>
+      <p class="lede">Three rounds. One minute each. One story you have not told in years.</p>
+    </div>
+  </section>
+
+  <!-- 1 — Guidelines -->
+  <section class="slide" id="s1">
+    <div class="inner">
+      <div class="eyebrow" style="text-align:center">The Guidelines</div>
+      <h2 style="text-align:center">How It Works</h2>
+      <div class="rounds">
+        <div class="round">
+          <div class="num">1</div>
+          <div>
+            <h3>Round One</h3>
+            <p>Pick a paper, and find the person with the <b>same number</b>.</p>
+          </div>
+        </div>
+        <div class="round">
+          <div class="num">2</div>
+          <div>
+            <h3>Round Two</h3>
+            <p><b>+1</b> to your number, and find the person with that number.</p>
+          </div>
+        </div>
+        <div class="round">
+          <div class="num">3</div>
+          <div>
+            <h3>Round Three</h3>
+            <p><b>+2</b> to your number, and find the person with that number.</p>
+          </div>
+        </div>
+      </div>
+      <p class="note">Each person shares for one minute.</p>
+    </div>
+  </section>
+
+  <!-- 2 — Topic wheel -->
+  <section class="slide" id="s2">
+    <div class="inner">
+      <div class="eyebrow" style="text-align:center">Each Round, A New Topic</div>
+      <div class="topic-card">
+        <div class="topic-label">Your topic</div>
+        <div id="topic">Ready?</div>
+        <div class="controls">
+          <button class="btn" id="draw">Draw a topic</button>
+          <button class="btn ghost" id="reset">Reset deck</button>
+        </div>
+        <div class="timer">
+          <div id="clock">1:00</div>
+          <button class="btn ghost" id="timerBtn">Start 1 min</button>
+        </div>
+      </div>
+      <p class="lede" style="text-align:center">Share your favourite&nbsp;&mdash; then the childhood memory behind it.</p>
+    </div>
+  </section>
+
+  <!-- 3 — Tip -->
+  <section class="slide" id="s3">
+    <div class="inner">
+      <div class="eyebrow" style="text-align:center">Improv Tip</div>
+      <h2 style="text-align:center">Tell It As A Story</h2>
+      <div class="w-grid">
+        <div class="w"><div class="k">Who</div><p>Who is it? Name the people in the memory.</p></div>
+        <div class="w"><div class="k">When</div><p>When is it? Set the year, the age, the season.</p></div>
+        <div class="w"><div class="k">What</div><p>What happened? Take us to the moment itself.</p></div>
+        <div class="w"><div class="k">Why</div><p>Why do you love it &mdash; or not? Land the feeling.</p></div>
+      </div>
+      <p class="quote">&ldquo;Use a story with who, when, what, why.&rdquo;</p>
+    </div>
+  </section>
+
+  <!-- 4 — Close -->
+  <section class="slide" id="s4">
+    <div class="inner" style="text-align:center">
+      <div class="eyebrow">Let's Begin</div>
+      <h1>Round One</h1>
+      <div class="sub">Pick your paper. Find your number.</div>
+      <p class="lede">Sixty seconds. Who, when, what, why. Go.</p>
+      <div class="controls" style="margin-top:32px">
+        <button class="btn" id="toTopics">Go to the topic wheel</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">Click or press &rarr; to continue</div>
+
+<nav class="nav">
+  <button id="prev" aria-label="Previous">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" aria-label="Next">&#8594;</button>
+</nav>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsEl = document.getElementById('dots');
+  var prevB  = document.getElementById('prev');
+  var nextB  = document.getElementById('next');
+  var hint   = document.getElementById('hint');
+  var i = 0;
+
+  slides.forEach(function(_, n){
+    var d = document.createElement('button');
+    d.className = 'dot' + (n === 0 ? ' on' : '');
+    d.setAttribute('aria-label', 'Slide ' + (n + 1));
+    d.onclick = function(e){ e.stopPropagation(); go(n); };
+    dotsEl.appendChild(d);
+  });
+  var dots = Array.prototype.slice.call(dotsEl.children);
+
+  function go(n){
+    if(n < 0 || n >= slides.length) return;
+    slides[i].classList.remove('active');
+    dots[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('active');
+    dots[i].classList.add('on');
+    prevB.disabled = i === 0;
+    nextB.disabled = i === slides.length - 1;
+    hint.classList.toggle('hide', i !== 0);
+  }
+  prevB.onclick = function(e){ e.stopPropagation(); go(i - 1); };
+  nextB.onclick = function(e){ e.stopPropagation(); go(i + 1); };
+  prevB.disabled = true;
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown') go(i + 1);
+    if(e.key === 'ArrowLeft'  || e.key === 'PageUp')   go(i - 1);
+    if(e.key === ' '){ e.preventDefault(); go(i + 1); }
+  });
+  document.querySelector('.stage').addEventListener('click', function(e){
+    if(e.target.closest('button')) return;
+    go(i + 1);
+  });
+  document.getElementById('toTopics').onclick = function(e){ e.stopPropagation(); go(2); };
+
+  // ---- topic deck ----
+  var TOPICS = ['Movie','Artist','Travel Trip','Family Member','School','Food','Book',
+                'Life Experience','Country','Snacks','Games','Friend','Sports'];
+  var deck = [], topicEl = document.getElementById('topic'), rolling = false;
+
+  function shuffle(){
+    deck = TOPICS.slice();
+    for(var k = deck.length - 1; k > 0; k--){
+      var j = Math.floor(Math.random() * (k + 1));
+      var t = deck[k]; deck[k] = deck[j]; deck[j] = t;
+    }
+  }
+  shuffle();
+
+  document.getElementById('draw').onclick = function(e){
+    e.stopPropagation();
+    if(rolling) return;
+    if(!deck.length) shuffle();
+    var pick = deck.pop();
+    rolling = true;
+    topicEl.classList.add('rolling');
+    var spins = 0;
+    var iv = setInterval(function(){
+      topicEl.textContent = TOPICS[Math.floor(Math.random() * TOPICS.length)];
+      if(++spins > 11){
+        clearInterval(iv);
+        topicEl.textContent = pick;
+        topicEl.classList.remove('rolling');
+        rolling = false;
+      }
+    }, 65);
+  };
+  document.getElementById('reset').onclick = function(e){
+    e.stopPropagation();
+    shuffle();
+    topicEl.textContent = 'Ready?';
+  };
+
+  // ---- one minute timer ----
+  var clock = document.getElementById('clock');
+  var tBtn  = document.getElementById('timerBtn');
+  var left = 60, tick = null;
+
+  function paint(){
+    var m = Math.floor(left / 60), s = left % 60;
+    clock.textContent = m + ':' + (s < 10 ? '0' + s : s);
+    clock.className = left > 30 ? 'green' : (left > 10 ? 'amber' : 'red');
+  }
+  function stop(){ clearInterval(tick); tick = null; tBtn.textContent = 'Start 1 min'; }
+
+  tBtn.onclick = function(e){
+    e.stopPropagation();
+    if(tick){ stop(); left = 60; clock.className = ''; clock.textContent = '1:00'; return; }
+    left = 60; paint();
+    tBtn.textContent = 'Reset';
+    tick = setInterval(function(){
+      left--; paint();
+      if(left <= 0){ stop(); clock.textContent = "Time!"; clock.className = 'red'; }
+    }, 1000);
+  };
+})();
+</script>
+</body>
+</html>
