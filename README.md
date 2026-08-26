@@ -19,6 +19,20 @@ and the goal is to tell the childhood story behind it.
 
 **Improv tip:** use a story with *who, when, what, why*.
 
+## Printing the slips
+
+`pairing-slips.pdf` is a ready-to-print A4 sheet of 20 numbered slips, four across
+and five down, with dashed cut lines. Hand them out as people arrive and use only
+as many as you need — the numbers must run 1..N with no gaps.
+
+To print a different count:
+
+```
+python3 make_slips.py 32 pairing-slips.pdf
+```
+
+It fills 20 slips per page and adds pages as needed. Needs `reportlab`.
+
 ## Running it
 
 No build step. Open `index.html`, or:
