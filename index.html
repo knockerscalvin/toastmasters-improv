@@ -89,6 +89,34 @@
     font-family:var(--serif);font-style:italic;font-size:clamp(16px,2.8vw,22px);color:var(--yellow);
   }
 
+  /* ---------- guide + slip ---------- */
+  .guide{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(14px,3vw,28px);align-items:start}
+  .steps{display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px);text-align:left}
+  .slip{
+    background:var(--cream);color:var(--ink);border-radius:14px;
+    padding:clamp(15px,2.4vw,20px);transform:rotate(-1.6deg);
+    box-shadow:0 14px 32px rgba(0,0,0,.34);
+  }
+  .slip-head{
+    font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(42,26,29,.55);text-align:center;padding-bottom:9px;
+    border-bottom:1px dashed rgba(42,26,29,.3);
+  }
+  .slip-row{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:clamp(7px,1.3vh,11px) 2px;border-bottom:1px dashed rgba(42,26,29,.18);
+  }
+  .slip-row span{font-size:clamp(12.5px,1.8vw,14.5px);font-weight:500;color:rgba(42,26,29,.72)}
+  .slip-row b{font-family:var(--serif);font-weight:800;font-size:clamp(21px,3.4vw,29px);color:var(--maroon)}
+  .slip-foot{
+    text-align:center;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:rgba(42,26,29,.42);padding-top:9px;
+  }
+  @media (max-width:640px){
+    .guide{grid-template-columns:1fr}
+    .slip{transform:none;max-width:280px;margin:0 auto}
+  }
+
   /* ---------- topic wheel ---------- */
   .topic-card{
     background:rgba(251,246,236,.07);border:1px solid rgba(251,246,236,.16);
@@ -179,27 +207,36 @@
     <div class="inner">
       <div class="eyebrow" style="text-align:center">The Guidelines</div>
       <h2 style="text-align:center">How It Works</h2>
-      <div class="rounds">
-        <div class="round">
-          <div class="num">1</div>
-          <div>
-            <h3>Round One</h3>
-            <p>Pick a paper, and find the person with the <b>same number</b>.</p>
+      <div class="guide">
+        <div class="steps">
+          <div class="round">
+            <div class="num">1</div>
+            <div>
+              <h3>Pick a paper</h3>
+              <p>Your slip lists a <b>partner number for every round</b>.</p>
+            </div>
+          </div>
+          <div class="round">
+            <div class="num">2</div>
+            <div>
+              <h3>Find that number</h3>
+              <p>Each round, find the person holding the number listed for it.</p>
+            </div>
+          </div>
+          <div class="round">
+            <div class="num">3</div>
+            <div>
+              <h3>Change every round</h3>
+              <p>New round, new number, <b>new partner</b>. Three rounds in all.</p>
+            </div>
           </div>
         </div>
-        <div class="round">
-          <div class="num">2</div>
-          <div>
-            <h3>Round Two</h3>
-            <p><b>+1</b> to your number, and find the person with that number.</p>
-          </div>
-        </div>
-        <div class="round">
-          <div class="num">3</div>
-          <div>
-            <h3>Round Three</h3>
-            <p><b>+2</b> to your number, and find the person with that number.</p>
-          </div>
+        <div class="slip">
+          <div class="slip-head">Your slip</div>
+          <div class="slip-row"><span>Round 1</span><b>7</b></div>
+          <div class="slip-row"><span>Round 2</span><b>3</b></div>
+          <div class="slip-row"><span>Round 3</span><b>12</b></div>
+          <div class="slip-foot">example</div>
         </div>
       </div>
       <p class="note">Each person shares for one minute.</p>
