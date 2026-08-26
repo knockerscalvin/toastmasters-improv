@@ -295,6 +295,9 @@
         <button class="btn" id="makePairs">Generate</button>
       </div>
       <div id="pairOut"><p class="pair-msg">Enter your headcount to build the three rounds.</p></div>
+      <div class="controls" style="margin-top:clamp(18px,3vh,26px)">
+        <button class="btn" id="pairNext">Next</button>
+      </div>
     </div>
   </section>
 
@@ -341,7 +344,7 @@
       <div class="sub">Pick your paper. Find your number.</div>
       <p class="lede">Sixty seconds. Who, when, what, why. Go.</p>
       <div class="controls" style="margin-top:32px">
-        <button class="btn" id="toTopics">Go to the topic wheel</button>
+        <button class="btn" id="toPairs">Go to the pairings</button>
       </div>
     </div>
   </section>
@@ -398,8 +401,8 @@
     if(e.target.closest('button')) return;
     go(i + 1);
   });
-  var topicIndex = slides.indexOf(document.getElementById('s2'));
-  document.getElementById('toTopics').onclick = function(e){ e.stopPropagation(); go(topicIndex); };
+  var pairIndex = slides.indexOf(document.getElementById('sPair'));
+  document.getElementById('toPairs').onclick = function(e){ e.stopPropagation(); go(pairIndex); };
 
   // ---- pairing generator (circle method: no repeat partners) ----
   function pkey(a, b){ return a < b ? a + '-' + b : b + '-' + a; }
@@ -532,6 +535,7 @@
   }
 
   document.getElementById('makePairs').onclick = function(e){ e.stopPropagation(); renderPairs(); };
+  document.getElementById('pairNext').onclick = function(e){ e.stopPropagation(); go(i + 1); };
   head.onclick = function(e){ e.stopPropagation(); };
   head.onkeydown = function(e){
     e.stopPropagation();
