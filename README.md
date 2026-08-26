@@ -1,6 +1,6 @@
 # Childhood Memories — An Improv Session
 
-A single-page slide deck for a Toastmasters Table Topics session.
+A single-page slide deck for a Toastmasters variety session.
 
 ## The session
 
