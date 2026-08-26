@@ -2,7 +2,7 @@
 
     python3 make_slips.py [count] [output.pdf]
 
-Defaults to 20 slips on a single page, 4 across by 5 down.
+Defaults to 40 slips over two pages, 4 across by 5 down per sheet.
 """
 import sys
 from reportlab.lib.pagesizes import A4
@@ -10,7 +10,6 @@ from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 
 MAROON = (0x77 / 255, 0x24 / 255, 0x32 / 255)
-GREY = (0.55, 0.55, 0.55)
 CUT = (0.72, 0.72, 0.72)
 
 COLS, ROWS = 4, 5
@@ -37,26 +36,16 @@ def draw_page(c, numbers, page_w, page_h):
         col = idx % COLS
         row = idx // COLS
         cx = MARGIN + col * cell_w + cell_w / 2
-        top = page_h - MARGIN - row * cell_h
-        cy = top - cell_h / 2
-
-        c.setFillColorRGB(*GREY)
-        c.setFont("Helvetica", 6.5)
-        c.drawCentredString(cx, top - 13 * mm, "CHILDHOOD MEMORIES")
+        cy = page_h - MARGIN - row * cell_h - cell_h / 2
 
         c.setFillColorRGB(*MAROON)
-        size = 82
+        size = 96
         c.setFont("Times-Bold", size)
         c.drawCentredString(cx, cy - size * 0.34, str(n))
 
-        c.setFillColorRGB(*GREY)
-        c.setFont("Helvetica", 6.5)
-        c.drawCentredString(cx, MARGIN + (ROWS - 1 - row) * cell_h + 11 * mm,
-                            "keep this number all session")
-
 
 def main():
-    count = int(sys.argv[1]) if len(sys.argv) > 1 else 20
+    count = int(sys.argv[1]) if len(sys.argv) > 1 else 40
     out = sys.argv[2] if len(sys.argv) > 2 else "pairing-slips.pdf"
     page_w, page_h = A4
 
