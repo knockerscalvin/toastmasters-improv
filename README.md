@@ -13,8 +13,9 @@ Pairings come from the round-robin circle method, so nobody draws the same partn
 twice. Odd headcounts put one group of three in each round; they share an extra
 minute. At 3 or 5 people a repeat is unavoidable and the page says so.
 
-Each person shares for one minute. Every round gets a random topic, and the
-goal is to share the childhood memory behind it.
+Each person shares for one minute. Every round draws a random topic, framed as
+**the most memorable one** — the toy, the gift, the trouble that stuck with you —
+and the goal is to tell the childhood story behind it.
 
 **Improv tip:** use a story with *who, when, what, why*.
 

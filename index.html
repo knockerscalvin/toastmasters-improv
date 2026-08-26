@@ -306,7 +306,7 @@
     <div class="inner">
       <div class="eyebrow" style="text-align:center">Each Round, A New Topic</div>
       <div class="topic-card">
-        <div class="topic-label">Your topic</div>
+        <div class="topic-label">Most memorable</div>
         <div id="topic">Ready?</div>
         <div class="controls">
           <button class="btn" id="draw">Draw a topic</button>
@@ -317,7 +317,7 @@
           <button class="btn ghost" id="timerBtn">Start 1 min</button>
         </div>
       </div>
-      <p class="lede" style="text-align:center">Share your favourite&nbsp;&mdash; then the childhood memory behind it.</p>
+      <p class="lede" style="text-align:center">The one that stuck with you&nbsp;&mdash; and the childhood story behind it.</p>
     </div>
   </section>
 
@@ -544,7 +544,8 @@
 
   // ---- topic deck ----
   var TOPICS = ['Movie','Artist','Travel Trip','Family Member','School','Food','Book',
-                'Life Experience','Country','Snacks','Games','Friend','Sports'];
+                'Life Experience','Country','Snack','Game','Friend','Sport',
+                'Gift','Trouble','Holiday'];
   var deck = [], topicEl = document.getElementById('topic'), rolling = false;
 
   function shuffle(){
